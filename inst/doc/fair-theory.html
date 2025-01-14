@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Making a Theory FAIR</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Making a Theory FAIR</h1>
+
+
+
+<div id="creating-a-fair-theory" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Creating a FAIR
+Theory</h1>
+<p>This tutorial takes the user through distinct steps involved in
+making a theory FAIR. It uses the R-package <code>theorytools</code> and
+other specific software and platforms. As open science infrastructure is
+an area of active development, the approach proposed here should not be
+considered definitive, but rather, as one proposal for a FAIR-compliant
+implementation of theory using infrastructure available at the time of
+writing. The steps described in this tutorial are largely automated by
+the function <code>theorytools::create_fair_theory()</code>; expert
+users might use this function directly.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(theorytools)</span></code></pre></div>
+<div id="time-to-complete" class="section level3" number="1.0.1">
+<h3><span class="header-section-number">1.0.1</span> Time to
+Complete</h3>
+<p>Estimated time to complete: 45-60 minutes.</p>
+</div>
+<div id="learning-goals" class="section level3" number="1.0.2">
+<h3><span class="header-section-number">1.0.2</span> Learning Goals</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Creating a project folder for your
+theory</label></li>
+<li><label><input type="checkbox"></input>Version controlling this folder with
+‘Git’</label></li>
+<li><label><input type="checkbox"></input>Connecting the local repository to a
+remote (‘GitHub’) repository</label></li>
+<li><label><input type="checkbox"></input>Adding a shareable theory file to
+the repository</label></li>
+<li><label><input type="checkbox"></input>Adding a LICENSE file to the
+repository (we recommend CC0)</label></li>
+<li><label><input type="checkbox"></input>Adding a README file to the
+repository</label></li>
+<li><label><input type="checkbox"></input>Adding a ‘Zenodo’ metadata to the
+repository</label></li>
+<li><label><input type="checkbox"></input>Pushing these changes to the remote
+repository</label></li>
+<li><label><input type="checkbox"></input>Turning on ‘Zenodo’ archiving for
+the remote repository</label></li>
+<li><label><input type="checkbox"></input>Publishing a release of your
+theory</label></li>
+<li><label><input type="checkbox"></input>Verifying that ‘Zenodo’ mints a DOI
+for your theory and its latest release</label></li>
+</ul>
+<!-- fig.width=600, fig.height=861,  -->
+<!-- <p align="center"> -->
+<!--   <img src="https://github.com/OpenScienceMOOC/Module-5-Open-Research-Software-and-Open-Source/blob/master/content_development/images/Task2.png?raw=true" alt="Task 2 workflow" width="600" height="861" style="margin-right: 30px; margin-left: 10px;" onmouseover="this.width='1200'; this.height='1722'" onmouseout="this.width='600'; this.height='861'"> -->
+<!-- </p> -->
+</div>
+<div id="running-example-the-empirical-cycle" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Running Example: the
+Empirical Cycle</h2>
+<p>Given that we based our argument for the importance of FAIR theory on
+the <em>empirical cycle</em>, we use it as an example for this tutorial.
+The empirical cycle is a model of cumulative knowledge production
+through scientific research, described in <span class="citation">De
+Groot and Spiekerman (1969)</span> (p. 28):</p>
+<blockquote>
+<p><em>Phase 1:</em> ‘Observation’: collection and grouping of empirical
+materials; (tentative) formation of hypotheses.<br />
+<em>Phase 2:</em> ‘Induction’: formulation of hypotheses.<br />
+<em>Phase 3:</em> ‘Deduction’: derivation of specific consequences from
+the hypotheses, in the form of testable predictions.<br />
+<em>Phase 4:</em> ‘Testing’: of the hypotheses against new empirical
+materials, by way of checking whether or not the predictions are
+fulfilled.<br />
+<em>Phase 5:</em> ‘Evaluation’: of the outcome of the testing procedure
+with respect to the hypotheses or theories stated, as well as with a
+view to subsequent, continued or related, investigations.</p>
+</blockquote>
+</div>
+</div>
+<div id="completing-all-steps-manually" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Completing All Steps
+Manually</h1>
+<div id="creating-a-project-folder" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Creating a Project
+Folder</h2>
+<p>In the spirit of modular publishing, this tutorial assumes that
+you’re creating your FAIR theory as a standalone project. While it is
+possible for a theory to be implemented in a programming language like
+R, it often is not - the empirical cycle described above is implemented
+in plain text. Therefore, we will not create an R project (with an
+<code>.Rproj</code> file et cetera), but just a regular nondescript
+project. This starts with creating an empty project folder. If we want
+to create a new folder called <code>empirical_cycle</code> in the
+existing folder <code>c:/theories/</code>, we can call:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>project_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">&quot;c:/theories&quot;</span>, <span class="st">&quot;empirical_cycle&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">dir.create</span>(project_path)</span></code></pre></div>
+</div>
+<div id="version-controlling-the-project-folder" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Version Controlling
+The Project Folder</h2>
+<p>We use ‘Git’ to version control the project folder. If you do not
+already have ‘Git’ installed on your computer, <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">install
+it now</a>. You can verify that ‘Git’ is installed and working by
+running:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">check_git</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; ℹ Check if Git is available on the command line.✔ Check if Git is available on the command line. ... done</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; ℹ Checking if libgit2 is properly installed, required for connecting to Git rem…✔ Checking if libgit2 is properly installed, required for connecting to Git rem…</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; ℹ Initiating Git repository.✔ Initiating Git repository. ... done</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; ℹ Git user is configured.✔ Git user is configured. ... done</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; ℹ Adding files with `gert::git_add()`.✔ Adding files with `gert::git_add()`. ... done</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; ℹ Committing with `gert::git_commit()`.✔ Committing with `gert::git_commit()`. ... done</span></span></code></pre></div>
+<p>If this function shows a green checkmark, you can initialize version
+control in your project repository by running:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>gert<span class="sc">::</span><span class="fu">git_init</span>(<span class="at">path =</span> project_path)</span></code></pre></div>
+</div>
+<div id="connecting-to-a-remote-github-repository" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Connecting to a
+Remote (‘GitHub’) Repository</h2>
+<p>To make your FAIR theory accessible to collaborators and discoverable
+by the wider community, you must connect your local ‘Git’ repository to
+a remote repository on a platform like ‘GitHub’.</p>
+<p>Before proceeding, ensure you <a href="https://github.com/">have a
+‘GitHub’ account</a>. Academics may qualify for a <a href="https://github.com/education/teachers">free upgrade</a>. To
+authorize ‘R’ to interact with your ‘GitHub’ account, run
+<code>usethis::create_github_token()</code>, which takes you to a
+website to create a personal access token (PAT). Copy it, then run
+<code>gitcreds::gitcreds_set()</code> and paste the PAT when asked. If
+you still experience problems try <code>usethis::gh_token_help()</code>
+for help.</p>
+<p>To check that you are ready to proceed, run:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">check_github</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; ℹ Active project has a remote repository that requires PAT authentication.</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; ℹ Check for PAT.✔ Check for PAT. ... done</span></span></code></pre></div>
+<p>If you see a green checkmark, you can create a new repository on
+‘GitHub’ directly from ‘R’:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">git_remote_create</span>(<span class="st">&quot;empirical_cycle&quot;</span>, <span class="at">private =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>This command will create a new public repository on ‘GitHub’ and link
+it to your local repository. The <code>private = FALSE</code> argument
+ensures the repository is public by default.</p>
+<p>Alternatively, you may have already created a remote repository on
+the ‘GitHub’ website. Either way, assuming the name of that repository
+is <code>empirical_cycle</code>, you can connect it to your project
+folder as follows:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">git_remote_connect</span>(project_path, <span class="at">remote_repo =</span> <span class="st">&quot;empirical_cycle&quot;</span>)</span></code></pre></div>
+</div>
+<div id="adding-a-shareable-theory-file-to-the-repository" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Adding a Shareable
+Theory File to the Repository</h2>
+<p>Your theory should be represented as a digital artifact, such as a
+structured plain-text document or a machine-readable file (e.g., ‘DOT’,
+‘JSON’, ‘YAML’, ‘R’ code). At this point, we offer two alternatives.</p>
+<div id="creating-a-plain-text-theory" class="section level3" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Creating a
+Plain-Text Theory</h3>
+<p>You could simply copy De Groot’s implementation of the empirical
+cycle into a plain text file, like so:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">writeLines</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;*Phase 1:* &#39;Observation&#39;: collection and grouping of empirical materials;</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="st">    (tentative) formation of hypotheses.&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>    <span class="st">&quot;*Phase 2:* &#39;Induction&#39;: formulation of hypotheses.&quot;</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    <span class="st">&quot;*Phase 3:* &#39;Deduction&#39;: derivation of specific consequences</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="st">    from the hypotheses, in the form of testable predictions.&quot;</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>    <span class="st">&quot;*Phase 4:* &#39;Testing&#39;: of the hypotheses against new empirical materials,</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="st">    by way of checking whether or not the predictions are fulfilled.&quot;</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>    <span class="st">&quot;*Phase 5:* &#39;Evaluation&#39;: of the outcome of the testing procedure</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="st">    with respect to the hypotheses or theories stated, as well as</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="st">    with a view to subsequent, continued or related, investigations.&quot;</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>), <span class="fu">file.path</span>(project_path, <span class="st">&quot;theory.txt&quot;</span>))</span></code></pre></div>
+</div>
+<div id="further-formalizing-the-empirical-cycle" class="section level3" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Further Formalizing
+the Empirical Cycle</h3>
+<p>If we compare it to the levels of theory formalization <span class="citation">(Guest and Martin 2021)</span>, De Groot’s theory is
+either at the “theory” or “specification” level. It consists of a series
+of natural language statements. We can increase the level of
+formalization, and present an “implementation” in the human- and
+machine-readable DOT language:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>theory <span class="ot">&lt;-</span> </span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="st">&quot;digraph {</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="st">  observation;</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="st">  induction;</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="st">  deduction;</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="st">  test;</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="st">  evaluation;</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="st">  observation -&gt; induction;</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="st">  induction -&gt; deduction;</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="st">  deduction -&gt; test;</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="st">  test -&gt; evaluation;</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="st">  evaluation -&gt; observation;</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="st">}&quot;</span></span></code></pre></div>
+<p>This language describes the model as a directed graph. Note that the
+code has been organized so that the first half describes an ontology of
+the entities the theory postulates, and the second half describes their
+proposed interrelations. This follows the first two properties of good
+theory according to Meehl <span class="citation">(Meehl
+1990)</span>.</p>
+<p>We can now write this implementation of the empirical cycle to a text
+file, say <code>empirical_cycle.dot</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">cat</span>(theory, <span class="at">file =</span> <span class="fu">file.path</span>(project_path, <span class="st">&quot;empirical_cycle.dot&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="adding-a-license-file-to-the-repository" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Adding a LICENSE File
+to the Repository</h2>
+<p>A license ensures that others know how they can legally reuse your
+work. For FAIR theory, we recommend using the CC0 (Creative Commons
+Zero) license, which places your work in the public domain. Add a
+license file to your repository:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">add_license_file</span>(<span class="at">path =</span> project_path, <span class="at">license =</span> <span class="st">&quot;cc0&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#&gt; ℹ Writing license file✔ Writing license file ... done</span></span></code></pre></div>
+</div>
+<div id="adding-a-readme-file-to-the-repository" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Adding a README File
+to the Repository</h2>
+<p>A README file describes the repository’s contents and purpose, making
+it easier for others to understand and reuse your theory. The
+<code>theorytools</code> package contains a function to generate a
+README file with appropriate sections for FAIR theory, which can be used
+like so:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>theorytools<span class="sc">::</span><span class="fu">add_readme_fair_theory</span>(<span class="at">title =</span> <span class="st">&quot;The Empirical Cycle&quot;</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>                                    <span class="at">path =</span> project_path)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#&gt; ℹ Creating README.md✔ Creating README.md ... done</span></span></code></pre></div>
+<p>We encourage users to edit the resulting <code>README.md</code> file,
+in particular, to add relevant information about X-interoperability.</p>
+</div>
+<div id="adding-zenodo-metadata-to-the-repository" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> Adding ‘Zenodo’
+Metadata to the Repository</h2>
+<p>‘Zenodo’ uses metadata files to archive and index repositories.
+Create a <code>.zenodo.json</code> file with metadata about your theory
+so that it is indexed appropriately:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">add_zenodo_json_theory</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="at">path =</span> project_path,</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;The Empirical Cycle&quot;</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="at">keywords =</span> <span class="fu">c</span>(<span class="st">&quot;philosophy of science&quot;</span>, <span class="st">&quot;methodology&quot;</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>)</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; ℹ Add &#39;Zenodo&#39; metadata✔ Add &#39;Zenodo&#39; metadata ... done</span></span></code></pre></div>
+</div>
+<div id="pushing-these-changes-to-the-remote-repository" class="section level2" number="2.8">
+<h2><span class="header-section-number">2.8</span> Pushing These Changes
+to the Remote Repository</h2>
+<p>Version control requires adding files to be tracked to the repository
+(<code>gert::git_add()</code>), committing changes to those files
+(<code>gert::git_commit()</code>), and pushing them to the remote
+repository (<code>gert::git_push()</code>). The <code>worcs</code>
+function <code>worcs::git_update()</code> combines these three actions,
+acting like a kind of “quick-save” function:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">git_update</span>(<span class="st">&quot;First commit of my theory&quot;</span>, <span class="at">repo =</span> project_path)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co">#&gt; ℹ Identify local &#39;Git&#39; repository at &quot;C:\\Users\\vanlissa\\AppData\\Local\\Temp…✔ Identify local &#39;Git&#39; repository at &quot;C:\\Users\\vanlissa\\AppData\\Local\\Temp…</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">#&gt; ℹ Adding files to staging area of &#39;Git&#39; repository.✔ Adding files to staging area of &#39;Git&#39; repository. ... done</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt; ℹ Committed staged files to &#39;Git&#39; repository.✔ Committed staged files to &#39;Git&#39; repository. ... done</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#&gt; ℹ Push local commits to remote repository.✖ Push local commits to remote repository. ... failed</span></span></code></pre></div>
+</div>
+<div id="check-your-github-repository" class="section level2" number="2.9">
+<h2><span class="header-section-number">2.9</span> Check Your ‘GitHub’
+Repository</h2>
+<p>Navigate to your repository on ‘GitHub’ and check that all committed
+files, including the theory file, license, README, and ‘Zenodo’
+metadata, are now visible in the remote repository (green box in the
+image below).</p>
+<p>Furthermore, the repository visibility must be set to “Public” to
+ensure that ‘Zenodo’ can discover and archive it. If you created the
+repository programmatically as shown above, it should already be public
+(see red box in the image above). If necessary, change the visibility
+setting to Public by clicking on “Settings” &gt; “General” &gt; “Change
+repository visibility.”</p>
+</div>
+<div id="login-to-zenodo" class="section level2" number="2.10">
+<h2><span class="header-section-number">2.10</span> Login to
+‘Zenodo’</h2>
+<p>Head over to <a href="https://zenodo.org">zenodo.org</a>. ‘Zenodo’ is
+a platform where you can permanently archive your code and other project
+elements. ‘Zenodo’ does this by assigning projects a <strong>Digital
+Object Identifier</strong> (DOI), which also helps to make the work more
+citable. This is different to ‘GitHub’, which acts as a place where the
+actual work on a project takes place, rather than long-term archiving of
+it. At ‘GitHub’, content can be modified, deleted, rewritten, and
+irreversibly changed, which makes it a bit concerning to be used for
+longer lasting referencing purposes. ‘Zenodo’ offers more security and
+permanence for research outputs.</p>
+<p>If you already have a ‘Zenodo’ account, this is easy. If not, follow
+the steps to create one — you can <strong>login using your ‘GitHub’
+account</strong>.</p>
+</div>
+<div id="authorize-github-to-connect-with-zenodo" class="section level2" number="2.11">
+<h2><span class="header-section-number">2.11</span> Authorize ‘GitHub’
+to connect with ‘Zenodo’</h2>
+<p>On the ‘Zenodo’ website authorize it to connect to your ‘GitHub’
+account in the ‘<a href="https://zenodo.org/account/settings/github/">Using ’GitHub’</a>’
+section. Here, ‘Zenodo’ will redirect you to ‘GitHub’ to ask for
+permissions to use ‘<a href="https://developer.github.com/webhooks/">webhooks</a>’ on your
+repositories. You want to authorize ‘Zenodo’ here with the permissions
+it needs to form those links.</p>
+</div>
+<div id="select-the-repository-to-archive" class="section level2" number="2.12">
+<h2><span class="header-section-number">2.12</span> Select the
+Repository to Archive</h2>
+<p>If you have got this far, this means that ‘Zenodo’ is now authorized
+to configure the repository webhooks that it needs to archive the
+repository and issue it a DOI. To do this, on the ‘Zenodo’ website
+navigate to the <a href="https://zenodo.org/account/settings/github/">‘GitHub’ repository
+listing page</a> and simply “flip the switch” next to your repository.
+If your repository <strong>does not show up</strong> in the list, you
+may need to press the ‘Syncronize now’ button. At the time of writing,
+we noticed that it can take quite a while (hours?) for ‘Zenodo’ to
+detect new ‘GitHub’ repositories. If so, take a break or come back to
+this last step tomorrow!</p>
+</div>
+<div id="optional-check-repository-settings" class="section level2" number="2.13">
+<h2><span class="header-section-number">2.13</span> <em>Optional:</em>
+Check repository settings</h2>
+<p>If you were successful, you have now set up a new webhook between
+‘Zenodo’ and your repository.</p>
+<p>Optionally, you can verify this. In ‘GitHub’, click on the settings
+for your repository, and the Webhooks tab on the left hand side menu.
+This should display the new ‘Zenodo’ webhook configured to ‘Zenodo’.
+Note, it may take a little time for the webhook listing to show up.</p>
+</div>
+<div id="create-a-new-release" class="section level2" number="2.14">
+<h2><span class="header-section-number">2.14</span> Create a New
+Release</h2>
+<p>To archive a repository on ‘Zenodo’, you must create a new release.
+You can do this using the following code:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">git_release_publish</span>(<span class="at">repo =</span> project_path)</span></code></pre></div>
+<p>If you have not previously published any releases, this function will
+assume that you want to use semantic versioning for both the release tag
+and the release title. This means that the first release will be labeled
+with version number “0.1.0”. Each subsequent release will automatically
+increment the trailing digit, i.e.: “0.1.1”, “0.1.2”. If you make a
+major change to the theory, you may want to manually increment the
+middle digit like so:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">git_release_publish</span>(<span class="at">repo =</span> project_path,</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>                           <span class="at">tag_name =</span> <span class="st">&quot;0.2.0&quot;</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>                           <span class="at">release_name =</span> <span class="st">&quot;0.2.0&quot;</span>)</span></code></pre></div>
+</div>
+<div id="verify-on-zenodo" class="section level2" number="2.15">
+<h2><span class="header-section-number">2.15</span> Verify on
+‘Zenodo’</h2>
+<p>To verify that your release was archived on ‘Zenodo’ and assigned a
+DOI, you need to visit the <a href="https://zenodo.org/deposit">Uploads</a> tab.</p>
+</div>
+<div id="entering-meta-data" class="section level2" number="2.16">
+<h2><span class="header-section-number">2.16</span> Entering
+Meta-Data</h2>
+<p>We can further document our ‘Zenodo’ archive as a FAIR theory by
+adding some extra information on ‘Zenodo’. On ‘Zenodo’ click the <a href="https://zenodo.org/deposit">Upload</a> tab in the main menu, where
+you should find your newly uploaded repository.</p>
+<p>Click the orange <code>Edit</code> button, and verify/supply the
+following information:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Resource type: Should be set to
+<code>Model</code></label></li>
+<li><label><input type="checkbox"></input>Title: Should be prefaced with
+<code>FAIR theory:</code></label></li>
+<li><label><input type="checkbox"></input>Keywords and subjects: The first
+keyword should be <code>fairtheory</code></label></li>
+<li><label><input type="checkbox"></input>Related works: Add the
+DOIs/identifiers of related (print) works. Use the <code>Relation</code>
+field as appropriate. For example:</label>
+<ul>
+<li><code>Is documented by</code> a theory paper you wrote, in which you
+introduce this FAIR theory</li>
+<li><code>Is derived from</code> an existing theory, which was published
+in print (paper, book chapter) but not made FAIR</li>
+</ul></li>
+</ul>
+<p>To save these changes, click ‘Publish’.</p>
+</div>
+<div id="verifying-that-zenodo-mints-a-doi-for-your-theory" class="section level2" number="2.17">
+<h2><span class="header-section-number">2.17</span> Verifying That
+‘Zenodo’ Mints a DOI for Your Theory</h2>
+<p>After publishing a release, ‘Zenodo’ will archive the repository and
+mint a DOI. Verify this by checking the ‘Zenodo’ entry for your
+repository, where the DOI will be displayed. Include this DOI in any
+citations or references to your theory to enhance its discoverability
+and reusability.</p>
+<p>The ‘GitHub’/‘Zenodo’ integration will assign one “mother-DOI” to the
+project, as well as a unique DOI to each version/release of the FAIR
+theory. This enables users to refer to and cite specific versions of the
+theory. The list of authors for the citation is automatically determined
+by the ‘GitHub’ user account names used by the repository - this can be
+edited on ‘Zenodo’, as explained above. DOIs used in ‘Zenodo’ are
+registered through the <a href="https://www.datacite.org/">DataCite</a>
+service.</p>
+<blockquote>
+<p><strong>Pro-tip</strong>: Check the <code>Citation</code> field on
+the ‘Zenodo’ page, and copy-paste it into the README file of your
+‘GitHub’ repo to make cross-linking even easier (or refer users to the
+‘Zenodo’ page to find the citation, which obviates the need to manually
+update this information). Click the DOI badge in the
+<code>Details</code> field to get instructions on how to add a clear
+highlighted DOI badge to your ‘GitHub’ repository, for users to see and
+make use of your DOI:</p>
+</blockquote>
+<p><a href="https://doi.org/10.5281/zenodo.14552329"><img role="img" aria-label="DOI" src="data:image/svg+xml; charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgICAgd2lkdGg9IjE5MC44NDM3NSIgaGVpZ2h0PSIyMCI+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJiIiB4Mj0iMCIgeTI9IjEwMCUiPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNiYmIiIHN0b3Atb3BhY2l0eT0iLjEiLz4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIi8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgICA8bWFzayBpZD0iYSIgd2lkdGg9IjE5MC44NDM3NSIgaGVpZ2h0PSIyMCI+CiAgICAgICAgICAgIDxyZWN0IHdpZHRoPSIxOTAuODQzNzUiIGhlaWdodD0iMjAiIHJ4PSIzIgogICAgICAgICAgICBmaWxsPSIjZmZmIi8+CiAgICAgICAgPC9tYXNrPgogICAgICAgIDxnIG1hc2s9InVybCgjYSkiPgogICAgICAgICAgICA8cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDMxLjM3NXYyMEgweiIgLz4KICAgICAgICAgICAgPHBhdGggZmlsbD0iIzAwN2VjNiIKICAgICAgICAgICAgZD0iTTMxLjM3NSAwaDE1OS40Njg3NXYyMEgzMS4zNzV6IgogICAgICAgICAgICAvPgogICAgICAgICAgICA8cGF0aCBmaWxsPSJ1cmwoI2IpIiBkPSJNMCAwaDE5MC44NDM3NXYyMEgweiIgLz4KICAgICAgICA8L2c+CiAgICAgICAgPGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLAogICAgICAgIFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPgogICAgICAgICAgICA8dGV4dCB4PSIxNi4xODc1IiB5PSIxNSIgZmlsbD0iIzAxMDEwMSIKICAgICAgICAgICAgZmlsbC1vcGFjaXR5PSIuMyI+CiAgICAgICAgICAgICAgICBET0kKICAgICAgICAgICAgPC90ZXh0PgogICAgICAgICAgICA8dGV4dCB4PSIxNi4xODc1IiB5PSIxNCI+CiAgICAgICAgICAgICAgICBET0kKICAgICAgICAgICAgPC90ZXh0PgogICAgICAgICAgICA8dGV4dCB4PSIxMTAuNjA5Mzc1IgogICAgICAgICAgICB5PSIxNSIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyI+CiAgICAgICAgICAgICAgICAxMC41MjgxL3plbm9kby4xNDU1MjMyOQogICAgICAgICAgICA8L3RleHQ+CiAgICAgICAgICAgIDx0ZXh0IHg9IjExMC42MDkzNzUiIHk9IjE0Ij4KICAgICAgICAgICAgICAgIDEwLjUyODEvemVub2RvLjE0NTUyMzI5CiAgICAgICAgICAgIDwvdGV4dD4KICAgICAgICA8L2c+CiAgICA8L3N2Zz4=" alt="DOI" /></a></p>
+</div>
+<div id="congratulations" class="section level2" number="2.18">
+<h2><span class="header-section-number">2.18</span>
+CONGRATULATIONS!</h2>
+<p>Your FAIR theory is now archived in ‘Zenodo’, and with a DOI that can
+be versioned to reflect updates to the repository version through time.
+You should be able to see details of this on the ‘GitHub’ ‘Zenodo’ page
+for your repository. This also means that your archived projects can get
+picked up by other indexing services and search engines that use DOIs
+too.</p>
+<p>Providing a long-term archive and a DOI for your work is required for
+others to be able to properly cite it, as this provides basic citation
+metadata. For Open Science, it is important to be able to
+comprehensively cite the resources that you use in your research,
+including theory, and this workflow enables that to happen, in line with
+best practices. Making theory FAIR also helps elevate the standard of
+theory to that of the standard of other research outputs, like papers
+and software.</p>
+<blockquote>
+<p><strong>Pro-tip</strong>: Is your research funded by an EU grant? Now
+you can directly connect your FAIR theory to your grant by updating the
+grant section of the metadata on the project’s ‘Zenodo’ record. This
+massively helps to increase its discoverability!</p>
+</blockquote>
+</div>
+<div id="checklist-for-citing-your-project" class="section level2" number="2.19">
+<h2><span class="header-section-number">2.19</span> Checklist for citing
+your project</h2>
+<p>So now you have a sustainably archived ‘GitHub’ repository in
+‘Zenodo’ that is ready to be re-used and cited! Before continuing, make
+sure that you have:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Linked your ‘GitHub’ project to
+‘Zenodo’. If you see a complete copy of your ‘GitHub’ repository in
+‘Zenodo’ then things are working.</label></li>
+<li><label><input type="checkbox"></input>‘Zenodo’ and ‘GitHub’ integrated
+setup works nicely. For example have all the author names, and correct
+project title come across to ‘Zenodo’. If not, or if authors just have
+nicknames you can edit these details in ‘Zenodo’.</label></li>
+<li><label><input type="checkbox"></input>Project has a first release, with a
+DOI. You should have a DOI displayed on your projects ‘Zenodo’ page.
+This first DOI is called the ‘concept DOI’ and is the master DOI linking
+to all subsequent release DOIs. Copy this DOI link and embed it in your
+‘GitHub’ projects README page. You’re done!</label></li>
+</ul>
+</div>
+</div>
+<div id="optional-everything-in-one-step" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> <em>Optional:</em>
+Everything in One Step</h1>
+<p>The function <code>theorytools::create_fair_theory()</code> automates
+most of the preceding steps, up to step 2.8. Assuming you have already
+created a shareable theory file called <code>theory.txt</code> which
+resides in the currently active directory (<code>getwd()</code>), you
+can create your FAIR theory as follows:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">create_fair_theory</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>  <span class="at">path =</span> <span class="fu">file.path</span>(<span class="st">&quot;c:/theories&quot;</span>, <span class="st">&quot;empirical_cycle&quot;</span>),</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;The Empirical Cycle, Again&quot;</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="at">theory_file =</span> <span class="st">&quot;theory.txt&quot;</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="at">remote_repo =</span> <span class="st">&quot;empirical_cycle2&quot;</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>  <span class="at">add_license =</span> <span class="st">&quot;cc0&quot;</span>)</span></code></pre></div>
+<p>You should still complete steps 2.12 - 2.17 manually.</p>
+</div>
+<div id="references" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> References</h1>
+<p>This tutorial is partly adapted from Module 5, Task 2 of <span class="citation">Tennant et al. (2018)</span>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-degrootMethodologyFoundationsInference1969" class="csl-entry">
+De Groot, Adriaan D., and J. A. A. Spiekerman. 1969. <em>Methodology:
+<span>Foundations</span> of Inference and Research in the Behavioral
+Sciences</em>. De Gruyter Mouton. <a href="https://doi.org/10.1515/9783112313121">https://doi.org/10.1515/9783112313121</a>.
+</div>
+<div id="ref-guestHowComputationalModeling2021" class="csl-entry">
+Guest, Olivia, and Andrea E. Martin. 2021. <span>“How
+<span>Computational Modeling Can Force Theory Building</span> in
+<span>Psychological Science</span>.”</span> <em>Perspectives on
+Psychological Science</em> 16 (4): 789–802. <a href="https://doi.org/10.1177/1745691620970585">https://doi.org/10.1177/1745691620970585</a>.
+</div>
+<div id="ref-meehlAppraisingAmendingTheories1990" class="csl-entry">
+Meehl, Paul E. 1990. <span>“Appraising and <span>Amending
+Theories</span>: <span>The Strategy</span> of <span>Lakatosian
+Defense</span> and <span>Two Principles</span> That <span>Warrant
+It</span>.”</span> <em>Psychological Inquiry</em> 1 (2): 108–41. <a href="https://doi.org/10.1207/s15327965pli0102_1">https://doi.org/10.1207/s15327965pli0102_1</a>.
+</div>
+<div id="ref-jon_tennant_2018_1434288" class="csl-entry">
+Tennant, Jon, Simon Worthington, Tania Allard, Philipp Zumstein, Daniel
+S. Katz, Alexander Morley, Stephan Druskat, et al. 2018.
+<span>“<span>OpenScienceMOOC</span>/Module-5-Open-Research-Software-
+and-<span>Open-Source</span>: <span>Second</span> Release.”</span>
+Zenodo. <a href="https://doi.org/10.5281/zenodo.1434288">https://doi.org/10.5281/zenodo.1434288</a>.
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
