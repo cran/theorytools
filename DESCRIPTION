@@ -1,7 +1,7 @@
 Package: theorytools
 Type: Package
 Title: FAIR Theory Construction
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person(
       given = c("Caspar", "J."),
@@ -23,17 +23,21 @@ Description: An integrated suite of tools for creating, maintaining, and reusing
     and enhances their discoverability and usability.
 License: GPL (>= 3)
 Encoding: UTF-8
-URL: https://github.com/cjvanlissa/theorytools
+URL: https://cjvanlissa.github.io/theorytools/
 RoxygenNote: 7.3.2
-Imports: worcs (>= 0.1.16), gert, gh, cli, jsonlite
-Suggests: knitr, rmarkdown, testthat (>= 3.0.0), pkgdown, withr,
-        usethis, fs
+Imports: worcs (>= 0.1.16), gert, gh, cli, jsonlite, curl, knitr,
+        dagitty, yaml, tidySEM (>= 0.2.8), methods, Deriv
+Suggests: rmarkdown, testthat (>= 3.0.0), pkgdown, webexercises, withr,
+        usethis, fs, ggplot2, igraph, bookdown
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+Depends: R (>= 3.5)
+LazyData: true
+Config/Needs/website: rmarkdown
 NeedsCompilation: no
-Packaged: 2025-01-11 17:39:02 UTC; vanlissa
-Author: Caspar J. Van Lissa [aut, cre]
-    (<https://orcid.org/0000-0002-0808-5024>)
+Packaged: 2025-06-23 12:13:36 UTC; vanlissa
+Author: Caspar J. Van Lissa [aut, cre] (ORCID:
+    <https://orcid.org/0000-0002-0808-5024>)
 Maintainer: Caspar J. Van Lissa <c.j.vanlissa@tilburguniversity.edu>
 Repository: CRAN
-Date/Publication: 2025-01-14 10:20:01 UTC
+Date/Publication: 2025-06-23 12:40:02 UTC

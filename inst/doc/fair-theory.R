@@ -21,21 +21,6 @@ project_path <- file.path(tempdir(), "empirical_cycle")
 dir.create(project_path)
 
 ## -----------------------------------------------------------------------------
-worcs::check_git()
-
-## -----------------------------------------------------------------------------
-gert::git_init(path = project_path)
-
-## -----------------------------------------------------------------------------
-worcs::check_github()
-
-## ----eval = FALSE-------------------------------------------------------------
-# worcs::git_remote_create("empirical_cycle", private = FALSE)
-
-## ----eval = FALSE-------------------------------------------------------------
-# worcs::git_remote_connect(project_path, remote_repo = "empirical_cycle")
-
-## -----------------------------------------------------------------------------
 writeLines(
   c("*Phase 1:* 'Observation': collection and grouping of empirical materials;
     (tentative) formation of hypotheses.",
@@ -83,6 +68,21 @@ add_zenodo_json_theory(
   title = "The Empirical Cycle",
   keywords = c("philosophy of science", "methodology")
 )
+
+## -----------------------------------------------------------------------------
+worcs::check_git()
+
+## -----------------------------------------------------------------------------
+gert::git_init(path = project_path)
+
+## -----------------------------------------------------------------------------
+worcs::check_github()
+
+## ----eval = FALSE-------------------------------------------------------------
+# worcs::git_remote_create("empirical_cycle", private = FALSE)
+
+## ----eval = FALSE-------------------------------------------------------------
+# worcs::git_remote_connect(project_path, remote_repo = "empirical_cycle")
 
 ## -----------------------------------------------------------------------------
 worcs::git_update("First commit of my theory", repo = project_path)

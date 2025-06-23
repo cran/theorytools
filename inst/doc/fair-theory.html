@@ -384,28 +384,28 @@ Complete</h3>
 <div id="learning-goals" class="section level3" number="1.0.2">
 <h3><span class="header-section-number">1.0.2</span> Learning Goals</h3>
 <ul class="task-list">
-<li><label><input type="checkbox"></input>Creating a project folder for your
+<li><label><input type="checkbox"></input>Create a project folder for your
 theory</label></li>
-<li><label><input type="checkbox"></input>Version controlling this folder with
-‘Git’</label></li>
-<li><label><input type="checkbox"></input>Connecting the local repository to a
+<li><label><input type="checkbox"></input>Put this folder under version
+control with ‘Git’</label></li>
+<li><label><input type="checkbox"></input>Connect the local repository to a
 remote (‘GitHub’) repository</label></li>
-<li><label><input type="checkbox"></input>Adding a shareable theory file to
-the repository</label></li>
-<li><label><input type="checkbox"></input>Adding a LICENSE file to the
-repository (we recommend CC0)</label></li>
-<li><label><input type="checkbox"></input>Adding a README file to the
+<li><label><input type="checkbox"></input>Add a shareable theory file to the
 repository</label></li>
-<li><label><input type="checkbox"></input>Adding a ‘Zenodo’ metadata to the
+<li><label><input type="checkbox"></input>Add a LICENSE file to the repository
+(we recommend CC0)</label></li>
+<li><label><input type="checkbox"></input>Add a README file to the
 repository</label></li>
-<li><label><input type="checkbox"></input>Pushing these changes to the remote
+<li><label><input type="checkbox"></input>Add a ‘Zenodo’ metadata to the
 repository</label></li>
-<li><label><input type="checkbox"></input>Turning on ‘Zenodo’ archiving for
-the remote repository</label></li>
-<li><label><input type="checkbox"></input>Publishing a release of your
+<li><label><input type="checkbox"></input>Push these changes to the remote
+repository</label></li>
+<li><label><input type="checkbox"></input>Turn on ‘Zenodo’ archiving for the
+remote repository</label></li>
+<li><label><input type="checkbox"></input>Publish a release of your
 theory</label></li>
-<li><label><input type="checkbox"></input>Verifying that ‘Zenodo’ mints a DOI
-for your theory and its latest release</label></li>
+<li><label><input type="checkbox"></input>Verify that ‘Zenodo’ mints a DOI for
+your theory and its latest release</label></li>
 </ul>
 <!-- fig.width=600, fig.height=861,  -->
 <!-- <p align="center"> -->
@@ -447,32 +447,130 @@ possible for a theory to be implemented in a programming language like
 R, it often is not - the empirical cycle described above is implemented
 in plain text. Therefore, we will not create an R project (with an
 <code>.Rproj</code> file et cetera), but just a regular nondescript
-project. This starts with creating an empty project folder. If we want
-to create a new folder called <code>empirical_cycle</code> in the
-existing folder <code>c:/theories/</code>, we can call:</p>
+project. This starts with creating an empty project folder, which will
+become the theory archive. If we want to create a new folder called
+<code>empirical_cycle</code> in the existing folder
+<code>c:/theories/</code>, we can call:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>project_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">&quot;c:/theories&quot;</span>, <span class="st">&quot;empirical_cycle&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">dir.create</span>(project_path)</span></code></pre></div>
 </div>
-<div id="version-controlling-the-project-folder" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Version Controlling
+<div id="adding-a-shareable-theory-file-to-the-repository" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Adding a Shareable
+Theory File to the Repository</h2>
+<p>Your theory should be represented as a digital artifact, such as a
+structured plain-text document or a machine-readable file (e.g., ‘DOT’,
+‘JSON’, ‘YAML’, ‘R’ code). At this point, we offer two alternatives.</p>
+<div id="theory-as-plain-text" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Theory as Plain
+Text</h3>
+<p>You could simply copy De Groot’s implementation of the empirical
+cycle into a plain text file, like so:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">writeLines</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;*Phase 1:* &#39;Observation&#39;: collection and grouping of empirical materials;</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="st">    (tentative) formation of hypotheses.&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    <span class="st">&quot;*Phase 2:* &#39;Induction&#39;: formulation of hypotheses.&quot;</span>, </span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    <span class="st">&quot;*Phase 3:* &#39;Deduction&#39;: derivation of specific consequences</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="st">    from the hypotheses, in the form of testable predictions.&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>    <span class="st">&quot;*Phase 4:* &#39;Testing&#39;: of the hypotheses against new empirical materials,</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="st">    by way of checking whether or not the predictions are fulfilled.&quot;</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>    <span class="st">&quot;*Phase 5:* &#39;Evaluation&#39;: of the outcome of the testing procedure</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="st">    with respect to the hypotheses or theories stated, as well as</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="st">    with a view to subsequent, continued or related, investigations.&quot;</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>), <span class="fu">file.path</span>(project_path, <span class="st">&quot;theory.txt&quot;</span>))</span></code></pre></div>
+</div>
+<div id="implementing-the-theory-in-a-formal-language" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Implementing the
+Theory in a Formal Language</h3>
+<p>If we compare it to the levels of theory formalization <span class="citation">(Guest and Martin 2021)</span>, De Groot’s theory is
+either at the “theory” or “specification” level. It consists of a series
+of natural language statements. We can increase the level of
+formalization, and present an “implementation” in the human- and
+machine-readable DOT language, thereby meeting criterion I1 of the FAIR
+principles (<em>“using a formal language for knowledge
+representation”</em>):</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>theory <span class="ot">&lt;-</span> </span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="st">&quot;digraph {</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="st">  observation;</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="st">  induction;</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="st">  deduction;</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="st">  test;</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="st">  evaluation;</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="st">  observation -&gt; induction;</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="st">  induction -&gt; deduction;</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="st">  deduction -&gt; test;</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="st">  test -&gt; evaluation;</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="st">  evaluation -&gt; observation;</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="st">}&quot;</span></span></code></pre></div>
+<p>This language describes the model as a directed graph. Note that the
+code has been organized so that the first half describes an ontology of
+the entities the theory postulates, and the second half describes their
+proposed interrelations. This follows the first two properties of good
+theory according to Meehl <span class="citation">(Meehl 1990)</span>.
+Because Git tracks changes on a line-by-line basis, separating the
+ontology and structural parts of the theory facilitates tracking changes
+to either of them. We can now write this implementation of the empirical
+cycle to a text file, say <code>empirical_cycle.dot</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">cat</span>(theory, <span class="at">file =</span> <span class="fu">file.path</span>(project_path, <span class="st">&quot;empirical_cycle.dot&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="documenting-reusability-with-a-license" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Documenting
+Reusability with a LICENSE</h2>
+<p>A license ensures that others know how they can legally reuse your
+work. We recommend a CC0 (Creative Commons Zero) license for FAIR
+theory, which waives all copryright protection and places your work in
+the public domain. This recommendation is based on the fact that
+copyright protection does not cover ideas, and the assumption that FAIR
+theory is created to maximize reuse. Other licenses are available, see
+<a href="https://choosealicense.com/non-software/">https://choosealicense.com</a>.
+You can add a license file to your repository like so:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">add_license_file</span>(<span class="at">path =</span> project_path, <span class="at">license =</span> <span class="st">&quot;cc0&quot;</span>)</span></code></pre></div>
+</div>
+<div id="documenting-interoperability-with-a-readme-file" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Documenting
+Interoperability with a README File</h2>
+<p>A README file describes the repository’s contents and purpose, making
+it easier for others to understand your theory’s potential for
+interoperability and reuse. The <code>theorytools</code> package
+contains a function to generate a README file with appropriate sections
+for FAIR theory, which can be used like so:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>theorytools<span class="sc">::</span><span class="fu">add_readme_fair_theory</span>(<span class="at">title =</span> <span class="st">&quot;The Empirical Cycle&quot;</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>                                    <span class="at">path =</span> project_path)</span></code></pre></div>
+<p>We encourage users to edit the resulting <code>README.md</code> file,
+in particular, to add relevant information about X-interoperability. For
+guidance on writing a README file for theory, see <a href="https://cjvanlissa.github.io/theorytools/articles/readme.html">this
+vignette</a>.</p>
+</div>
+<div id="adding-zenodo-metadata-to-the-repository" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Adding ‘Zenodo’
+Metadata to the Repository</h2>
+<p>In a later step, we will archive the theory on ‘Zenodo’. Creating a
+<code>.zenodo.json</code> file with metadata about your theory allows
+the project to be indexed automatically. This can be done by
+running:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">add_zenodo_json_theory</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="at">path =</span> project_path,</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;The Empirical Cycle&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="at">keywords =</span> <span class="fu">c</span>(<span class="st">&quot;philosophy of science&quot;</span>, <span class="st">&quot;methodology&quot;</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="version-controlling-the-project-folder" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Version Controlling
 The Project Folder</h2>
 <p>We use ‘Git’ to version control the project folder. If you do not
 already have ‘Git’ installed on your computer, <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">install
 it now</a>. You can verify that ‘Git’ is installed and working by
 running:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">check_git</span>()</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; ℹ Check if Git is available on the command line.✔ Check if Git is available on the command line. ... done</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; ℹ Checking if libgit2 is properly installed, required for connecting to Git rem…✔ Checking if libgit2 is properly installed, required for connecting to Git rem…</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; ℹ Initiating Git repository.✔ Initiating Git repository. ... done</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; ℹ Git user is configured.✔ Git user is configured. ... done</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; ℹ Adding files with `gert::git_add()`.✔ Adding files with `gert::git_add()`. ... done</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; ℹ Committing with `gert::git_commit()`.✔ Committing with `gert::git_commit()`. ... done</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">check_git</span>()</span></code></pre></div>
 <p>If this function shows a green checkmark, you can initialize version
 control in your project repository by running:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>gert<span class="sc">::</span><span class="fu">git_init</span>(<span class="at">path =</span> project_path)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>gert<span class="sc">::</span><span class="fu">git_init</span>(<span class="at">path =</span> project_path)</span></code></pre></div>
 </div>
-<div id="connecting-to-a-remote-github-repository" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Connecting to a
+<div id="connecting-to-a-remote-github-repository" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> Connecting to a
 Remote (‘GitHub’) Repository</h2>
 <p>To make your FAIR theory accessible to collaborators and discoverable
 by the wider community, you must connect your local ‘Git’ repository to
@@ -486,12 +584,10 @@ website to create a personal access token (PAT). Copy it, then run
 you still experience problems try <code>usethis::gh_token_help()</code>
 for help.</p>
 <p>To check that you are ready to proceed, run:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">check_github</span>()</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; ℹ Active project has a remote repository that requires PAT authentication.</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; ℹ Check for PAT.✔ Check for PAT. ... done</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">check_github</span>()</span></code></pre></div>
 <p>If you see a green checkmark, you can create a new repository on
 ‘GitHub’ directly from ‘R’:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">git_remote_create</span>(<span class="st">&quot;empirical_cycle&quot;</span>, <span class="at">private =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">git_remote_create</span>(<span class="st">&quot;empirical_cycle&quot;</span>, <span class="at">private =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>This command will create a new public repository on ‘GitHub’ and link
 it to your local repository. The <code>private = FALSE</code> argument
 ensures the repository is public by default.</p>
@@ -499,103 +595,7 @@ ensures the repository is public by default.</p>
 the ‘GitHub’ website. Either way, assuming the name of that repository
 is <code>empirical_cycle</code>, you can connect it to your project
 folder as follows:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">git_remote_connect</span>(project_path, <span class="at">remote_repo =</span> <span class="st">&quot;empirical_cycle&quot;</span>)</span></code></pre></div>
-</div>
-<div id="adding-a-shareable-theory-file-to-the-repository" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Adding a Shareable
-Theory File to the Repository</h2>
-<p>Your theory should be represented as a digital artifact, such as a
-structured plain-text document or a machine-readable file (e.g., ‘DOT’,
-‘JSON’, ‘YAML’, ‘R’ code). At this point, we offer two alternatives.</p>
-<div id="creating-a-plain-text-theory" class="section level3" number="2.4.1">
-<h3><span class="header-section-number">2.4.1</span> Creating a
-Plain-Text Theory</h3>
-<p>You could simply copy De Groot’s implementation of the empirical
-cycle into a plain text file, like so:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">writeLines</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;*Phase 1:* &#39;Observation&#39;: collection and grouping of empirical materials;</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="st">    (tentative) formation of hypotheses.&quot;</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>    <span class="st">&quot;*Phase 2:* &#39;Induction&#39;: formulation of hypotheses.&quot;</span>, </span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    <span class="st">&quot;*Phase 3:* &#39;Deduction&#39;: derivation of specific consequences</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="st">    from the hypotheses, in the form of testable predictions.&quot;</span>,</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>    <span class="st">&quot;*Phase 4:* &#39;Testing&#39;: of the hypotheses against new empirical materials,</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="st">    by way of checking whether or not the predictions are fulfilled.&quot;</span>,</span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>    <span class="st">&quot;*Phase 5:* &#39;Evaluation&#39;: of the outcome of the testing procedure</span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="st">    with respect to the hypotheses or theories stated, as well as</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="st">    with a view to subsequent, continued or related, investigations.&quot;</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>), <span class="fu">file.path</span>(project_path, <span class="st">&quot;theory.txt&quot;</span>))</span></code></pre></div>
-</div>
-<div id="further-formalizing-the-empirical-cycle" class="section level3" number="2.4.2">
-<h3><span class="header-section-number">2.4.2</span> Further Formalizing
-the Empirical Cycle</h3>
-<p>If we compare it to the levels of theory formalization <span class="citation">(Guest and Martin 2021)</span>, De Groot’s theory is
-either at the “theory” or “specification” level. It consists of a series
-of natural language statements. We can increase the level of
-formalization, and present an “implementation” in the human- and
-machine-readable DOT language:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>theory <span class="ot">&lt;-</span> </span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="st">&quot;digraph {</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="st">  observation;</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="st">  induction;</span></span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="st">  deduction;</span></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="st">  test;</span></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="st">  evaluation;</span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="st">  </span></span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="st">  observation -&gt; induction;</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="st">  induction -&gt; deduction;</span></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="st">  deduction -&gt; test;</span></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="st">  test -&gt; evaluation;</span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="st">  evaluation -&gt; observation;</span></span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="st">  </span></span>
-<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="st">}&quot;</span></span></code></pre></div>
-<p>This language describes the model as a directed graph. Note that the
-code has been organized so that the first half describes an ontology of
-the entities the theory postulates, and the second half describes their
-proposed interrelations. This follows the first two properties of good
-theory according to Meehl <span class="citation">(Meehl
-1990)</span>.</p>
-<p>We can now write this implementation of the empirical cycle to a text
-file, say <code>empirical_cycle.dot</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">cat</span>(theory, <span class="at">file =</span> <span class="fu">file.path</span>(project_path, <span class="st">&quot;empirical_cycle.dot&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
-</div>
-</div>
-<div id="adding-a-license-file-to-the-repository" class="section level2" number="2.5">
-<h2><span class="header-section-number">2.5</span> Adding a LICENSE File
-to the Repository</h2>
-<p>A license ensures that others know how they can legally reuse your
-work. For FAIR theory, we recommend using the CC0 (Creative Commons
-Zero) license, which places your work in the public domain. Add a
-license file to your repository:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">add_license_file</span>(<span class="at">path =</span> project_path, <span class="at">license =</span> <span class="st">&quot;cc0&quot;</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#&gt; ℹ Writing license file✔ Writing license file ... done</span></span></code></pre></div>
-</div>
-<div id="adding-a-readme-file-to-the-repository" class="section level2" number="2.6">
-<h2><span class="header-section-number">2.6</span> Adding a README File
-to the Repository</h2>
-<p>A README file describes the repository’s contents and purpose, making
-it easier for others to understand and reuse your theory. The
-<code>theorytools</code> package contains a function to generate a
-README file with appropriate sections for FAIR theory, which can be used
-like so:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>theorytools<span class="sc">::</span><span class="fu">add_readme_fair_theory</span>(<span class="at">title =</span> <span class="st">&quot;The Empirical Cycle&quot;</span>,</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>                                    <span class="at">path =</span> project_path)</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#&gt; ℹ Creating README.md✔ Creating README.md ... done</span></span></code></pre></div>
-<p>We encourage users to edit the resulting <code>README.md</code> file,
-in particular, to add relevant information about X-interoperability.</p>
-</div>
-<div id="adding-zenodo-metadata-to-the-repository" class="section level2" number="2.7">
-<h2><span class="header-section-number">2.7</span> Adding ‘Zenodo’
-Metadata to the Repository</h2>
-<p>‘Zenodo’ uses metadata files to archive and index repositories.
-Create a <code>.zenodo.json</code> file with metadata about your theory
-so that it is indexed appropriately:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">add_zenodo_json_theory</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="at">path =</span> project_path,</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;The Empirical Cycle&quot;</span>,</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="at">keywords =</span> <span class="fu">c</span>(<span class="st">&quot;philosophy of science&quot;</span>, <span class="st">&quot;methodology&quot;</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>)</span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; ℹ Add &#39;Zenodo&#39; metadata✔ Add &#39;Zenodo&#39; metadata ... done</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">git_remote_connect</span>(project_path, <span class="at">remote_repo =</span> <span class="st">&quot;empirical_cycle&quot;</span>)</span></code></pre></div>
 </div>
 <div id="pushing-these-changes-to-the-remote-repository" class="section level2" number="2.8">
 <h2><span class="header-section-number">2.8</span> Pushing These Changes
@@ -606,11 +606,7 @@ to the Remote Repository</h2>
 repository (<code>gert::git_push()</code>). The <code>worcs</code>
 function <code>worcs::git_update()</code> combines these three actions,
 acting like a kind of “quick-save” function:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">git_update</span>(<span class="st">&quot;First commit of my theory&quot;</span>, <span class="at">repo =</span> project_path)</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co">#&gt; ℹ Identify local &#39;Git&#39; repository at &quot;C:\\Users\\vanlissa\\AppData\\Local\\Temp…✔ Identify local &#39;Git&#39; repository at &quot;C:\\Users\\vanlissa\\AppData\\Local\\Temp…</span></span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">#&gt; ℹ Adding files to staging area of &#39;Git&#39; repository.✔ Adding files to staging area of &#39;Git&#39; repository. ... done</span></span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt; ℹ Committed staged files to &#39;Git&#39; repository.✔ Committed staged files to &#39;Git&#39; repository. ... done</span></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#&gt; ℹ Push local commits to remote repository.✖ Push local commits to remote repository. ... failed</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>worcs<span class="sc">::</span><span class="fu">git_update</span>(<span class="st">&quot;First commit of my theory&quot;</span>, <span class="at">repo =</span> project_path)</span></code></pre></div>
 </div>
 <div id="check-your-github-repository" class="section level2" number="2.9">
 <h2><span class="header-section-number">2.9</span> Check Your ‘GitHub’
@@ -700,30 +696,40 @@ middle digit like so:</p>
 <p>To verify that your release was archived on ‘Zenodo’ and assigned a
 DOI, you need to visit the <a href="https://zenodo.org/deposit">Uploads</a> tab.</p>
 </div>
-<div id="entering-meta-data" class="section level2" number="2.16">
-<h2><span class="header-section-number">2.16</span> Entering
+<div id="updating-meta-data" class="section level2" number="2.16">
+<h2><span class="header-section-number">2.16</span> Updating
 Meta-Data</h2>
 <p>We can further document our ‘Zenodo’ archive as a FAIR theory by
-adding some extra information on ‘Zenodo’. On ‘Zenodo’ click the <a href="https://zenodo.org/deposit">Upload</a> tab in the main menu, where
+adding some extra information on ‘Zenodo’. Note that, if you created a
+<code>.zenodo.json</code> file in a previous step, some of these
+metadata will be populated automatically. On ‘Zenodo’ click the <a href="https://zenodo.org/deposit">Upload</a> tab in the main menu, where
 you should find your newly uploaded repository.</p>
 <p>Click the orange <code>Edit</code> button, and verify/supply the
 following information:</p>
 <ul class="task-list">
-<li><label><input type="checkbox"></input>Resource type: Should be set to
-<code>Model</code></label></li>
-<li><label><input type="checkbox"></input>Title: Should be prefaced with
-<code>FAIR theory:</code></label></li>
-<li><label><input type="checkbox"></input>Keywords and subjects: The first
-keyword should be <code>fairtheory</code></label></li>
-<li><label><input type="checkbox"></input>Related works: Add the
+<li><p><label><input type="checkbox"></input>Resource type: Should be set to
+<code>Model</code></label></p></li>
+<li><p><label><input type="checkbox"></input>Title: Should be prefaced with
+<code>FAIR theory:</code></label></p></li>
+<li><p><label><input type="checkbox"></input>Keywords and subjects: The first
+keyword should be <code>fairtheory</code></label></p></li>
+<li><p><label><input type="checkbox"></input>Related works: Add the
 DOIs/identifiers of related (print) works. Use the <code>Relation</code>
-field as appropriate. For example:</label>
+field as appropriate. For example:</label></p>
 <ul>
 <li><code>Is documented by</code> a theory paper you wrote, in which you
 introduce this FAIR theory</li>
 <li><code>Is derived from</code> an existing theory, which was published
 in print (paper, book chapter) but not made FAIR</li>
 </ul></li>
+<li><p><label><input type="checkbox"></input>References: Optionally, cite
+related works in plain text. For example, here we can provide the full
+citation of De Groot and Spiekerman:</label></p>
+<blockquote>
+<p>De Groot, A. D., &amp; Spiekerman, J. A. A. (1969). Methodology:
+Foundations of inference and research in the behavioral sciences. De
+Gruyter Mouton. <a href="https://doi.org/10.1515/9783112313121" class="uri">https://doi.org/10.1515/9783112313121</a></p>
+</blockquote></li>
 </ul>
 <p>To save these changes, click ‘Publish’.</p>
 </div>
@@ -736,13 +742,13 @@ repository, where the DOI will be displayed. Include this DOI in any
 citations or references to your theory to enhance its discoverability
 and reusability.</p>
 <p>The ‘GitHub’/‘Zenodo’ integration will assign one “mother-DOI” to the
-project, as well as a unique DOI to each version/release of the FAIR
-theory. This enables users to refer to and cite specific versions of the
-theory. The list of authors for the citation is automatically determined
-by the ‘GitHub’ user account names used by the repository - this can be
-edited on ‘Zenodo’, as explained above. DOIs used in ‘Zenodo’ are
-registered through the <a href="https://www.datacite.org/">DataCite</a>
-service.</p>
+project, which will always resolve to the latest version, as well as a
+unique DOI to each version/release of the FAIR theory. This enables
+users to refer to and cite either the theory in general or specific
+versions of the theory. The list of authors for the citation is
+automatically determined by the ‘GitHub’ user account names used by the
+repository - this can be edited on ‘Zenodo’, as explained above. DOIs
+used in ‘Zenodo’ are registered through the <a href="https://www.datacite.org/">DataCite</a> service.</p>
 <blockquote>
 <p><strong>Pro-tip</strong>: Check the <code>Citation</code> field on
 the ‘Zenodo’ page, and copy-paste it into the README file of your
@@ -801,9 +807,9 @@ to all subsequent release DOIs. Copy this DOI link and embed it in your
 </ul>
 </div>
 </div>
-<div id="optional-everything-in-one-step" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> <em>Optional:</em>
-Everything in One Step</h1>
+<div id="automating-fair-theory-creation" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Automating FAIR Theory
+Creation</h1>
 <p>The function <code>theorytools::create_fair_theory()</code> automates
 most of the preceding steps, up to step 2.8. Assuming you have already
 created a shareable theory file called <code>theory.txt</code> which
