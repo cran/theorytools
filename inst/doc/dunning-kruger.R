@@ -68,7 +68,18 @@ plot(
 )
 dev.off()
 })
-knitr::include_graphics("dk.svg")
+if(file.exists("dk.svg")){
+  knitr::include_graphics("dk.svg")
+} else {
+  set.seed(1)
+plot(
+  g,
+  vertex.size = 20,
+  vertex.color = "white",
+  edge.label = E(g)$relationship,
+)
+}
+
 
 ## -----------------------------------------------------------------------------
 write_graph(

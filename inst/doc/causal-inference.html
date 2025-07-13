@@ -623,7 +623,7 @@ using <code>download_zenodo()</code>.</p>
 <p>Interoperability pertains to the ability to use a theory in
 scientific workflows. X-interoperability refers to the ability to use a
 theory for <em>specific operations</em> in scientific workflows. When we
-go through the remainder of the turorial, we are demonstrating that our
+go through the remainder of the tutorial, we are demonstrating that our
 FAIR tripartite model is X-interoperable for visualization in R, for
 selecting control variables, for performing causal inference, et cetera.
 That is to say: we can directly ingest the FAIR theory in R, and
@@ -635,7 +635,7 @@ inference.</p>
 <p>Then, we can plot the model using the <code>tidySEM</code>
 package:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">graph_sem</span>(tripartite)</span></code></pre></div>
-<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
 <p>We can optionally specify a layout for the graph, so that it
 resembles the model as visualized by Morris and colleagues:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>lo <span class="ot">&lt;-</span> <span class="fu">get_layout</span>(</span>
@@ -679,11 +679,12 @@ power analysis and plan our sample size, and to preregister a fully
 reproducible analysis pipeline <span class="citation">(Preregistration-As-Code, Peikert, Van Lissa, and
 Brandmaier 2021; Van Lissa 2022)</span>.</p>
 <p>Below is a simple code snippet to generate synthetic data using the
-<code>dagitty::simulateSEM()</code> function. This function interprets
-the DAG as a structural equation model, samples random values for the
-path coefficients (unless specific values are provided), and assumes
-normal residual variances. Note that many other functions for simulating
-data exist, and some may be better suited to particular use cases.</p>
+<code>theorytools::simulate_data()</code> function. This function
+interprets the DAG as a structural equation model, samples random values
+for the path coefficients (unless specific values are provided), and
+assumes normal residual variances. Note that many other functions for
+simulating data exist, and some may be better suited to particular use
+cases.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>df_sim <span class="ot">&lt;-</span> <span class="fu">simulate_data</span>(tripartite, <span class="at">n =</span> <span class="dv">497</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="fu">head</span>(df_sim)</span>
@@ -855,11 +856,10 @@ unbiased estimate of the effect of Observation on Emotion Regulation.
 <p>When working with real data, causal inference quickly becomes more
 complicated. Therefore, we provide a &quot;real data&quot; example here, to
 practice the relevant skills. The <code>theorytools</code> package
-includes a dataset that is based on <a href="https://aifs.gov.au/growing-up-in-australia">&quot;Growing Up in
-Australia - the Longitudinal Study of Australian Children&quot; (LSAC)</a>.
-As the LSAC dataset is accessible by explicit permission only, this is a
-synthetic dataset with similar properties to the real data. Let&#39;s access
-the data:</p>
+includes a dataset that takes inspiration from &quot;Growing Up in Australia
+- the Longitudinal Study of Australian Children&quot; <span class="citation">(LSAC, Family Studies 2020)</span>. As the LSAC dataset
+is accessible by explicit permission only, this is a synthetic dataset
+with similar properties to the real data. Let&#39;s access the data:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">head</span>(lsac)</span>
 <span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="co">#&gt;     warmth relationship_quality temperament_negreact emotion_regulation</span></span>
 <span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co">#&gt; 1 3.500000             2.285714                 1.75                2.4</span></span>
@@ -894,7 +894,7 @@ pragmatic reasons.</p>
 <p>Note that one variable is missing: Observation (O). This is
 unfortunate, as for the previous example we used O as our exposure
 variable. For the remainder of the examples, we will use Parenting
-Practices as our exposure variable. Obtain the adjusment set for the
+Practices as our exposure variable. Obtain the adjustment set for the
 effect of Parenting Practices on Emotion Regulation:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">adjustmentSets</span>(tripartite, <span class="at">exposure =</span> <span class="st">&quot;EC&quot;</span>, <span class="at">outcome =</span> <span class="st">&quot;ER&quot;</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="co">#&gt; { PC, PP }</span></span></code></pre></div>
@@ -1012,6 +1012,10 @@ Cinelli, Carlos, Andrew Forney, and Judea Pearl. 2022. <span>“A
 <span>Crash Course</span> in <span>Good</span> and <span>Bad
 Controls</span>.”</span> <em>Sociological Methods &amp; Research</em>,
 May, 00491241221099552. <a href="https://doi.org/10.1177/00491241221099552">https://doi.org/10.1177/00491241221099552</a>.
+</div>
+<div id="ref-australianinstituteoffamilystudiesGrowingAustralia2020" class="csl-entry">
+Family Studies, Australian Institute of. 2020. <span>“Growing
+<span>Up</span> in <span>Australia</span>.”</span> March 23, 2020.
 </div>
 <div id="ref-morrisRoleFamilyContext2007" class="csl-entry">
 Morris, Amanda Sheffield, Jennifer S. Silk, Laurence Steinberg, Sonya S.

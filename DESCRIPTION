@@ -1,7 +1,7 @@
 Package: theorytools
 Type: Package
 Title: FAIR Theory Construction
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
     person(
       given = c("Caspar", "J."),
@@ -35,9 +35,9 @@ Depends: R (>= 3.5)
 LazyData: true
 Config/Needs/website: rmarkdown
 NeedsCompilation: no
-Packaged: 2025-06-23 12:13:36 UTC; vanlissa
+Packaged: 2025-07-13 08:37:04 UTC; vanlissa
 Author: Caspar J. Van Lissa [aut, cre] (ORCID:
     <https://orcid.org/0000-0002-0808-5024>)
 Maintainer: Caspar J. Van Lissa <c.j.vanlissa@tilburguniversity.edu>
 Repository: CRAN
-Date/Publication: 2025-06-23 12:40:02 UTC
+Date/Publication: 2025-07-13 09:10:02 UTC
