@@ -9,10 +9,13 @@
 #' @importFrom tools md5sum
 #' @export
 #' @examples
+#' \dontrun{
+#' # These examples require internet access and may fail if resources are unavailable
 #' download_theory(id = "https://github.com/cjvanlissa/tripartite_model.git",
 #' path = file.path(tempdir(), "tripartite_git"))
 #' download_theory(id = "10.5281/zenodo.14921521",
 #' path = file.path(tempdir(), "tripartite_zenodo"))
+#' }
 download_theory <- function(id,
                             path = ".") {
 
@@ -22,11 +25,13 @@ download_theory <- function(id,
       dir.create(path)
     })
   }
+
   record_type <- git_or_zenodo(id)
 
   switch(record_type,
          "git" = {
            with_cli_try("Cloning repository from 'Git' remote", {
+             git_remote_exists(id)
              tmp <- gert::git_clone(url = id, path = path, verbose = FALSE)
              if(!dir.exists(path)) stop()
            })
@@ -71,7 +76,7 @@ git_or_zenodo <- function(x){
   if(grepl("10.5281/zenodo.", x, fixed = TRUE)){
     return("zenodo")
   }
-  if(git_remote_exists(x)){
+  if(grepl("git", x, fixed = TRUE)){
       return("git")
   }
   stop("Not a valid 'Git' or 'Zenodo' archive.")

@@ -1,6 +1,9 @@
 ## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
+## ----eval = requireNamespace("webexercises", quietly = TRUE)------------------
+webexercises::mcq(sample(c(answer = "Executing code immediately in an R session that a human user is interacting with.", "Having one function call another function; these functions are said to be 'interacting'", "Evaluating code by placing it in an Rmarkdown document, and knitting that document.")))
+
 ## ----eval = FALSE-------------------------------------------------------------
 # install.packages("theorytools", prompt = FALSE)
 # install.packages("dagitty", prompt = FALSE)
@@ -13,6 +16,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ## ----download_theory----------------------------------------------------------
 theorytools::download_theory("10.5281/zenodo.15648655", path = "theory")
+
+## ----eval = requireNamespace("webexercises", quietly = TRUE)------------------
+webexercises::mcq(sample(c(answer = "To prevent overwriting the WORCS project's README and LICENSE files", "To avoid downloading unnecessary files", "Because theorytools only works inside a 'theory/' directory", "Because dagitty requires theory files to be placed in a specific folder")))
 
 ## ----load_theory, eval = FALSE------------------------------------------------
 # sdt <- dagitty::dagitty(paste(readLines("../theory/sdt.txt"), collapse = "\n"))
@@ -32,6 +38,9 @@ if(!file.exists('sdt.png')){
 }
 knitr::include_graphics("sdt.png")
 
+## ----eval = requireNamespace("webexercises", quietly = TRUE)------------------
+webexercises::mcq(sample(c(answer = "integration, intrinsic_motivation, needs", "integration, intrinsic_motivation", "needs, intrinsic_ _motivation")))
+
 ## ----simulate-data, eval = FALSE----------------------------------------------
 # set.seed(1)
 # theorytools::simulate_data(sdt, n = 5)
@@ -39,6 +48,9 @@ knitr::include_graphics("sdt.png")
 ## ----echo = FALSE-------------------------------------------------------------
 set.seed(1)
 knitr::kable(theorytools::simulate_data(sdt, n = 5), digits = 2)
+
+## ----eval = requireNamespace("webexercises", quietly = TRUE)------------------
+webexercises::mcq(sample(c(answer = "Fitting a model to real-world data", "Exploring what-if scenarios", "Conducting power analysis", "Preregistering a reproducible analysis pipeline")))
 
 ## -----------------------------------------------------------------------------
 sdt_pruned <- theorytools:::prune_dag(sdt,
@@ -63,6 +75,9 @@ summary(res)
 ## ----eval = FALSE-------------------------------------------------------------
 # sum_res <- summary(res)
 # sum_res$coefficients["intrinsic_motivation", "Pr(>|t|)"] < .05
+
+## ----eval = requireNamespace("webexercises", quietly = TRUE)------------------
+webexercises::torf(TRUE)
 
 ## ----install_targets, results='hide', eval = FALSE----------------------------
 # install.packages("targets", prompt = FALSE)

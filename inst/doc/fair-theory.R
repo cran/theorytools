@@ -7,7 +7,7 @@ knitr::opts_chunk$set(
 in_packagedown <- tryCatch({pkgdown::in_pkgdown()}, error = function(e){ FALSE })
 
 ## ----setup--------------------------------------------------------------------
-library(theorytools)
+# library(theorytools)
 
 ## ----include = in_packagedown, eval = TRUE, echo = FALSE, fig.align='center', out.width = "70%", fig.cap="Conceptual workflow for this task."----
 knitr::include_graphics("https://github.com/OpenScienceMOOC/Module-5-Open-Research-Software-and-Open-Source/blob/master/content_development/images/Task2.png?raw=true")
@@ -17,66 +17,66 @@ knitr::include_graphics("https://github.com/OpenScienceMOOC/Module-5-Open-Resear
 # dir.create(project_path)
 
 ## ----echo = FALSE-------------------------------------------------------------
-project_path <- file.path(tempdir(), "empirical_cycle")
-dir.create(project_path)
+# project_path <- file.path(tempdir(), "empirical_cycle")
+# dir.create(project_path)
 
 ## -----------------------------------------------------------------------------
-writeLines(
-  c("*Phase 1:* 'Observation': collection and grouping of empirical materials;
-    (tentative) formation of hypotheses.",
-    "*Phase 2:* 'Induction': formulation of hypotheses.", 
-    "*Phase 3:* 'Deduction': derivation of specific consequences
-    from the hypotheses, in the form of testable predictions.",
-    "*Phase 4:* 'Testing': of the hypotheses against new empirical materials,
-    by way of checking whether or not the predictions are fulfilled.",
-    "*Phase 5:* 'Evaluation': of the outcome of the testing procedure
-    with respect to the hypotheses or theories stated, as well as
-    with a view to subsequent, continued or related, investigations."
-), file.path(project_path, "theory.txt"))
+# writeLines(
+#   c("*Phase 1:* 'Observation': collection and grouping of empirical materials;
+#     (tentative) formation of hypotheses.",
+#     "*Phase 2:* 'Induction': formulation of hypotheses.",
+#     "*Phase 3:* 'Deduction': derivation of specific consequences
+#     from the hypotheses, in the form of testable predictions.",
+#     "*Phase 4:* 'Testing': of the hypotheses against new empirical materials,
+#     by way of checking whether or not the predictions are fulfilled.",
+#     "*Phase 5:* 'Evaluation': of the outcome of the testing procedure
+#     with respect to the hypotheses or theories stated, as well as
+#     with a view to subsequent, continued or related, investigations."
+# ), file.path(project_path, "theory.txt"))
 
 ## -----------------------------------------------------------------------------
-theory <- 
-"digraph {
-
-  observation;
-  induction;
-  deduction;
-  test;
-  evaluation;
-  
-  observation -> induction;
-  induction -> deduction;
-  deduction -> test;
-  test -> evaluation;
-  evaluation -> observation;
-  
-}"
-
-## -----------------------------------------------------------------------------
-cat(theory, file = file.path(project_path, "empirical_cycle.dot"), sep = "\n")
+# theory <-
+# "digraph {
+# 
+#   observation;
+#   induction;
+#   deduction;
+#   test;
+#   evaluation;
+# 
+#   observation -> induction;
+#   induction -> deduction;
+#   deduction -> test;
+#   test -> evaluation;
+#   evaluation -> observation;
+# 
+# }"
 
 ## -----------------------------------------------------------------------------
-worcs::add_license_file(path = project_path, license = "cc0")
+# cat(theory, file = file.path(project_path, "empirical_cycle.dot"), sep = "\n")
 
 ## -----------------------------------------------------------------------------
-theorytools::add_readme_fair_theory(title = "The Empirical Cycle",
-                                    path = project_path)
+# worcs::add_license_file(path = project_path, license = "cc0")
 
 ## -----------------------------------------------------------------------------
-add_zenodo_json_theory(
-  path = project_path,
-  title = "The Empirical Cycle",
-  keywords = c("philosophy of science", "methodology")
-)
+# theorytools::add_readme_fair_theory(title = "The Empirical Cycle",
+#                                     path = project_path)
 
 ## -----------------------------------------------------------------------------
-worcs::check_git()
+# add_zenodo_json_theory(
+#   path = project_path,
+#   title = "The Empirical Cycle",
+#   keywords = c("philosophy of science", "methodology")
+# )
 
 ## -----------------------------------------------------------------------------
-gert::git_init(path = project_path)
+# worcs::check_git()
 
 ## -----------------------------------------------------------------------------
-worcs::check_github()
+# gert::git_init(path = project_path)
+
+## -----------------------------------------------------------------------------
+# worcs::check_github()
 
 ## ----eval = FALSE-------------------------------------------------------------
 # worcs::git_remote_create("empirical_cycle", private = FALSE)
@@ -85,7 +85,7 @@ worcs::check_github()
 # worcs::git_remote_connect(project_path, remote_repo = "empirical_cycle")
 
 ## -----------------------------------------------------------------------------
-worcs::git_update("First commit of my theory", repo = project_path)
+# worcs::git_update("First commit of my theory", repo = project_path)
 
 ## ----include = in_packagedown, eval = TRUE, echo = FALSE, out.width = "70%", fig.cap="Front Page of a 'GitHub' Repository"----
 knitr::include_graphics("https://github.com/cjvanlissa/theorytools/blob/master/docs/images/github.png?raw=true")

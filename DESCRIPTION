@@ -1,7 +1,7 @@
 Package: theorytools
 Type: Package
 Title: FAIR Theory Construction
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(
     person(
       given = c("Caspar", "J."),
@@ -24,20 +24,21 @@ Description: An integrated suite of tools for creating, maintaining, and reusing
 License: GPL (>= 3)
 Encoding: UTF-8
 URL: https://cjvanlissa.github.io/theorytools/
-RoxygenNote: 7.3.2
-Imports: worcs (>= 0.1.16), gert, gh, cli, jsonlite, curl, knitr,
-        dagitty, yaml, tidySEM (>= 0.2.8), methods, Deriv
+RoxygenNote: 7.3.3
+Imports: worcs (>= 0.1.19), gert, gh, cli, jsonlite, curl, knitr,
+        dagitty, yaml, tidySEM (>= 0.2.9), methods, Deriv, stringdist
 Suggests: rmarkdown, testthat (>= 3.0.0), pkgdown, webexercises, withr,
-        usethis, fs, ggplot2, igraph, bookdown
+        usethis, fs, ggplot2, igraph, bookdown, reticulate
+SystemRequirements: Python (>= 3.8)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Depends: R (>= 3.5)
 LazyData: true
 Config/Needs/website: rmarkdown
 NeedsCompilation: no
-Packaged: 2025-07-13 08:37:04 UTC; vanlissa
+Packaged: 2026-02-07 08:59:04 UTC; cjvanlissa
 Author: Caspar J. Van Lissa [aut, cre] (ORCID:
     <https://orcid.org/0000-0002-0808-5024>)
 Maintainer: Caspar J. Van Lissa <c.j.vanlissa@tilburguniversity.edu>
 Repository: CRAN
-Date/Publication: 2025-07-13 09:10:02 UTC
+Date/Publication: 2026-02-07 10:10:02 UTC
